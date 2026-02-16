@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import Login from './login';
 
 // ==================== DEMO DATA ====================
 const DEMO_EVENTS = [
@@ -42,6 +43,39 @@ const ANALYTICS_DATA = [
 
 // ==================== MAIN APP ====================
 function App() {
+  // Authentication State
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  // Check for saved session on mount
+  useEffect(() => {
+    const savedUser = localStorage.getItem('ieee_user');
+    if (savedUser) {
+      try {
+        const userData = JSON.parse(savedUser);
+        setCurrentUser(userData);
+        setIsAuthenticated(true);
+      } catch (e) {
+        localStorage.removeItem('ieee_user');
+      }
+    }
+  }, []);
+
+  // Login Handler
+  const handleLogin = (userData) => {
+    setCurrentUser(userData);
+    setIsAuthenticated(true);
+    localStorage.setItem('ieee_user', JSON.stringify(userData));
+  };
+
+  // Logout Handler
+  const handleLogout = () => {
+    setCurrentUser(null);
+    setIsAuthenticated(false);
+    localStorage.removeItem('ieee_user');
+    setCurrentView('universe');
+  };
+
   const [showOnboarding, setShowOnboarding] = useState(false); // Disabled by default for demo
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [demoMode, setDemoMode] = useState(true);
@@ -55,7 +89,7 @@ function App() {
     care: 80
   });
 
-  const [userProfile] = useState({
+  const [userProfile] = useState(currentUser || {
     name: 'Demo User',
     email: 'demo@igdtuw.ac.in',
     skills: ['AI/ML', 'Web Development', 'IoT'],
@@ -100,6 +134,17 @@ function App() {
 
   const theme = getTheme();
 
+  // Show Login Screen if not authenticated
+  if (!isAuthenticated) {
+    return (
+      <Login 
+        onLogin={handleLogin}
+        isDarkMode={isDarkMode}
+        toggleDarkMode={() => setIsDarkMode(!isDarkMode)}
+      />
+    );
+  }
+
   return (
     <div className="app-container" style={{ background: theme.bg, color: theme.text, minHeight: '100vh' }}>
       {showOnboarding && (
@@ -135,6 +180,8 @@ function App() {
         onCommandPalette={() => setCommandPaletteOpen(true)}
         activityRings={activityRings}
         setCurrentView={setCurrentView}
+        onLogout={handleLogout}
+        currentUser={currentUser}
       />
 
       {currentView === 'universe' && <UniverseDashboard theme={theme} setCurrentView={setCurrentView} />}
@@ -158,7 +205,7 @@ function App() {
 
 // ==================== COMPONENTS ====================
 
-function Header({ theme, isDarkMode, setIsDarkMode, demoMode, setDemoMode, onCommandPalette, activityRings, setCurrentView }) {
+function Header({ theme, isDarkMode, setIsDarkMode, demoMode, setDemoMode, onCommandPalette, activityRings, setCurrentView, onLogout, currentUser }) {
   return (
     <header className="app-header" style={{
       background: `${theme.white}ee`,
@@ -178,6 +225,22 @@ function Header({ theme, isDarkMode, setIsDarkMode, demoMode, setDemoMode, onCom
         </div>
 
         <div className="header-actions">
+          {currentUser && (
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '0.75rem',
+              padding: '0.5rem 1rem',
+              background: `${theme.accent}10`,
+              borderRadius: '12px',
+              marginRight: '0.5rem'
+            }}>
+              <span style={{ color: theme.text, fontWeight: '600', fontSize: '0.9rem' }}>
+                👤 {currentUser.name}
+              </span>
+            </div>
+          )}
+          
           <button onClick={onCommandPalette} className="command-button" style={{ background: `${theme.accent}20`, color: theme.accent }}>
             <span>⚡</span>
             <span className="command-shortcut">Ctrl+K</span>
@@ -189,6 +252,19 @@ function Header({ theme, isDarkMode, setIsDarkMode, demoMode, setDemoMode, onCom
 
           <button onClick={() => setDemoMode(!demoMode)} className="demo-button" style={{ background: demoMode ? '#4caf50' : theme.ieee, color: 'white' }}>
             {demoMode ? '✅ Demo Mode' : '🎬 Demo'}
+          </button>
+
+          <button 
+            onClick={onLogout} 
+            className="icon-button" 
+            style={{ 
+              background: '#dc3545', 
+              color: 'white',
+              fontWeight: '600'
+            }}
+            title="Logout"
+          >
+            🚪 Logout
           </button>
         </div>
       </div>
@@ -973,3 +1049,4 @@ function BlockchainView({ theme }) {
 }
 
 export default App;
+
