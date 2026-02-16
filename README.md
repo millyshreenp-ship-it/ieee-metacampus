@@ -207,8 +207,6 @@ npm install
 npm run dev
 Open in browser
 
-Visit http://localhost:3000 (or configured port).
-
 Future Scope
 Deeper integration with official IEEE portals, certifications, and global events.
 
