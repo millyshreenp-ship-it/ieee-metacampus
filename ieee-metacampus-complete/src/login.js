@@ -148,8 +148,8 @@ function Login({ onLogin, isDarkMode, toggleDarkMode }) {
         <div className="login-header">
           <div className="logo-section">
             <div className="logo-icon">🌌</div>
-            <h1>IEEE MetaCampus</h1>
-            <p className="tagline">Your Digital Campus Universe</p>
+            <h1>IEEE IGDTUW MetaCampus</h1>
+            <p className="tagline">Indira Gandhi Delhi Technical University for Women</p>
           </div>
         </div>
 
@@ -312,19 +312,19 @@ function Login({ onLogin, isDarkMode, toggleDarkMode }) {
 
       <div className="login-info">
         <div className="info-card">
-          <div className="info-icon">📊</div>
-          <h3>Analytics Dashboard</h3>
-          <p>Track your progress with detailed analytics</p>
+          <div className="info-icon">🤖</div>
+          <h3>AI-Powered Matching</h3>
+          <p>Smart recommendations for IEEE IGDTUW events</p>
         </div>
         <div className="info-card">
-          <div className="info-icon">🎓</div>
-          <h3>Mentorship</h3>
-          <p>Connect with expert mentors</p>
+          <div className="info-icon">🗺️</div>
+          <h3>AR Campus Navigation</h3>
+          <p>Navigate IGDTUW with augmented reality</p>
         </div>
         <div className="info-card">
           <div className="info-icon">🎨</div>
-          <h3>NFT Certificates</h3>
-          <p>Earn blockchain-verified achievements</p>
+          <h3>Blockchain NFT Certificates</h3>
+          <p>Verifiable IEEE IGDTUW achievements</p>
         </div>
       </div>
     </div>

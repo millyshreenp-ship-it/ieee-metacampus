@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Login from './login';
+import IEEEMembership from './IEEEMembership';
+import FeedbackSystem from './FeedbackSystem';
+import SocialLinks from './SocialLink';
 
 // ==================== DEMO DATA ====================
 const DEMO_EVENTS = [
@@ -199,6 +202,12 @@ function App() {
       )}
       {currentView === 'analytics' && <AnalyticsView theme={theme} />}
       {currentView === 'blockchain' && <BlockchainView theme={theme} />}
+      {currentView === 'membership' && <IEEEMembership theme={theme} />}
+      {currentView === 'feedback' && <FeedbackSystem theme={theme} />}
+      {currentView === 'social' && <SocialLinks theme={theme} />}
+      {currentView === 'ar_navigation' && <ARNavigationView theme={theme} />}
+      {currentView === 'voice_assistant' && <VoiceAssistantView theme={theme} />}
+      {currentView === 'recruitment' && <RecruitmentView theme={theme} />}
     </div>
   );
 }
@@ -219,8 +228,8 @@ function Header({ theme, isDarkMode, setIsDarkMode, demoMode, setDemoMode, onCom
         <div onClick={() => setCurrentView('universe')} className="header-brand" style={{ cursor: 'pointer' }}>
           <div className="brand-logo" style={{ background: theme.ieee }}>IEEE</div>
           <div>
-            <h1 className="brand-title" style={{ color: theme.text }}>IEEE MetaCampus</h1>
-            <p className="brand-tagline" style={{ color: theme.textSecondary }}>Your IEEE Universe in One App</p>
+            <h1 className="brand-title" style={{ color: theme.text }}>IEEE IGDTUW MetaCampus</h1>
+            <p className="brand-tagline" style={{ color: theme.textSecondary }}>Empowering Women in Technology</p>
           </div>
         </div>
 
@@ -319,76 +328,206 @@ function ActivityRings({ rings, theme }) {
 }
 
 function UniverseDashboard({ theme, setCurrentView }) {
-  const [planetUsage] = useState({
-    events: 45, projects: 20, mentorship: 15, wellness: 10, analytics: 10
-  });
-
-  const planets = Object.entries(planetUsage)
-    .sort(([,a], [,b]) => b - a)
-    .map(([name], index) => ({
-      name,
-      angle: (index * (360 / 5)) * (Math.PI / 180),
-      distance: 140 - (index * 15),
-      icon: name === 'events' ? '📅' : name === 'projects' ? '🚀' : name === 'mentorship' ? '🎓' : name === 'wellness' ? '💚' : '📊',
-      color: name === 'events' ? '#006699' : name === 'projects' ? '#ff6b6b' : name === 'mentorship' ? '#4ecdc4' : name === 'wellness' ? '#95e1d3' : '#ffa500'
-    }));
+  const features = [
+    { name: 'events', icon: '📅', color: '#006699', label: 'Events', description: 'AI-powered event recommendations' },
+    { name: 'projects', icon: '🚀', color: '#ff6b6b', label: 'Projects', description: 'GitHub-integrated collaborative hub' },
+    { name: 'mentorship', icon: '🎓', color: '#4ecdc4', label: 'Mentorship', description: 'AI-matched peer mentorship network' },
+    { name: 'ar_navigation', icon: '🗺️', color: '#ff9800', label: 'AR Campus', description: 'AR navigation for IEEE events' },
+    { name: 'membership', icon: '⚡', color: '#00cc99', label: 'Membership', description: 'IEEE IGDTUW membership benefits' },
+    { name: 'feedback', icon: '📋', color: '#ffa500', label: 'Feedback', description: 'NLP-powered feedback analysis' },
+    { name: 'social', icon: '🌐', color: '#0077b5', label: 'Social', description: 'Connect across all platforms' },
+    { name: 'wellness', icon: '💚', color: '#95e1d3', label: 'Wellness', description: 'AI chatbot & peer support' },
+    { name: 'analytics', icon: '📊', color: '#9b59b6', label: 'Analytics', description: 'Data-driven insights dashboard' },
+    { name: 'blockchain', icon: '🎨', color: '#667eea', label: 'NFT Certs', description: 'Blockchain-verified achievements' },
+    { name: 'voice_assistant', icon: '🎤', color: '#e91e63', label: 'Voice Assistant', description: 'Hands-free IEEE IGDTUW queries' },
+    { name: 'recruitment', icon: '📝', color: '#795548', label: 'Recruitment', description: 'Join IEEE IGDTUW core team' }
+  ];
 
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', background: theme.gradient }}>
+    <div style={{ 
+      width: '100%', 
+      minHeight: '100vh', 
+      background: theme.gradient,
+      padding: '6rem 2rem 4rem',
+      overflow: 'auto'
+    }}>
+      {/* Welcome Header */}
       <div style={{ 
-        position: 'absolute', width: '120px', height: '120px', borderRadius: '50%',
-        background: `radial-gradient(circle, ${theme.ieee}, ${theme.accent})`,
-        boxShadow: `0 0 60px ${theme.accent}`, display: 'flex', alignItems: 'center', 
-        justifyContent: 'center', animation: 'pulse 3s ease-in-out infinite', zIndex: 10
+        textAlign: 'center', 
+        marginBottom: '4rem',
+        animation: 'slideUp 0.6s ease-out'
       }}>
-        <div style={{ textAlign: 'center', color: 'white', fontWeight: 'bold' }}>
-          <div style={{ fontSize: '2rem' }}>IEEE</div>
-          <div style={{ fontSize: '0.75rem' }}>MetaCampus</div>
+        <div style={{ 
+          fontSize: '4rem', 
+          marginBottom: '1rem',
+          animation: 'pulse 2s ease-in-out infinite'
+        }}>
+          🌌
+        </div>
+        <h1 style={{ 
+          color: 'white', 
+          fontSize: '3rem', 
+          fontWeight: 'bold',
+          fontFamily: 'Georgia, serif',
+          marginBottom: '0.5rem',
+          textShadow: '0 4px 20px rgba(0,0,0,0.3)'
+        }}>
+          IEEE MetaCampus Universe
+        </h1>
+        <p style={{ 
+          color: 'rgba(255,255,255,0.9)', 
+          fontSize: '1.25rem',
+          maxWidth: '600px',
+          margin: '0 auto'
+        }}>
+          Explore your IEEE journey - Select any feature to get started
+        </p>
+      </div>
+
+      {/* Feature Grid */}
+      <div style={{ 
+        maxWidth: '1400px', 
+        margin: '0 auto',
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+        gap: '2rem',
+        padding: '0 1rem'
+      }}>
+        {features.map((feature) => (
+          <div
+            key={feature.name}
+            onClick={() => setCurrentView(feature.name)}
+            style={{
+              background: 'rgba(255,255,255,0.1)',
+              backdropFilter: 'blur(10px)',
+              borderRadius: '20px',
+              padding: '2rem',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease',
+              border: '2px solid rgba(255,255,255,0.2)',
+              position: 'relative',
+              overflow: 'hidden'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-10px) scale(1.02)';
+              e.currentTarget.style.background = 'rgba(255,255,255,0.15)';
+              e.currentTarget.style.borderColor = feature.color;
+              e.currentTarget.style.boxShadow = `0 20px 40px ${feature.color}40`;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0) scale(1)';
+              e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+          >
+            {/* Decorative gradient overlay */}
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              height: '4px',
+              background: `linear-gradient(90deg, ${feature.color}, transparent)`
+            }} />
+
+            {/* Icon */}
+            <div style={{ 
+              fontSize: '4rem', 
+              marginBottom: '1rem',
+              textAlign: 'center'
+            }}>
+              {feature.icon}
+            </div>
+
+            {/* Title */}
+            <h3 style={{ 
+              color: 'white', 
+              fontSize: '1.5rem',
+              fontWeight: 'bold',
+              marginBottom: '0.75rem',
+              textAlign: 'center'
+            }}>
+              {feature.label}
+            </h3>
+
+            {/* Description */}
+            <p style={{ 
+              color: 'rgba(255,255,255,0.8)', 
+              fontSize: '0.95rem',
+              textAlign: 'center',
+              lineHeight: '1.5',
+              marginBottom: '1.5rem'
+            }}>
+              {feature.description}
+            </p>
+
+            {/* Action indicator */}
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.5rem',
+              color: feature.color,
+              fontWeight: 'bold',
+              fontSize: '0.9rem'
+            }}>
+              <span>Explore</span>
+              <span>→</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Quick Stats Footer */}
+      <div style={{
+        maxWidth: '1200px',
+        margin: '4rem auto 0',
+        padding: '2rem',
+        background: 'rgba(255,255,255,0.1)',
+        backdropFilter: 'blur(10px)',
+        borderRadius: '16px',
+        border: '2px solid rgba(255,255,255,0.2)'
+      }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+          gap: '2rem',
+          textAlign: 'center'
+        }}>
+          <div>
+            <div style={{ fontSize: '2.5rem', color: 'white', fontWeight: 'bold' }}>12</div>
+            <div style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.9rem' }}>Features Available</div>
+          </div>
+          <div>
+            <div style={{ fontSize: '2.5rem', color: 'white', fontWeight: 'bold' }}>∞</div>
+            <div style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.9rem' }}>Possibilities</div>
+          </div>
+          <div>
+            <div style={{ fontSize: '2.5rem', color: 'white', fontWeight: 'bold' }}>24/7</div>
+            <div style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.9rem' }}>Always Available</div>
+          </div>
+          <div>
+            <div style={{ fontSize: '2.5rem', color: 'white', fontWeight: 'bold' }}>100%</div>
+            <div style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.9rem' }}>IEEE IGDTUW Focused</div>
+          </div>
         </div>
       </div>
 
-      {planets.map((planet, index) => {
-        const x = Math.cos(planet.angle) * planet.distance;
-        const y = Math.sin(planet.angle) * planet.distance;
-        
-        return (
-          <div key={planet.name}>
-            <div style={{
-              position: 'absolute', width: `${planet.distance * 2}px`, height: `${planet.distance * 2}px`,
-              border: '1px dashed rgba(255,255,255,0.2)', borderRadius: '50%',
-              left: '50%', top: '50%', transform: 'translate(-50%, -50%)', pointerEvents: 'none'
-            }} />
-            <div
-              onClick={() => setCurrentView(planet.name)}
-              style={{
-                position: 'absolute', left: `calc(50% + ${x}px)`, top: `calc(50% + ${y}px)`,
-                transform: 'translate(-50%, -50%)', cursor: 'pointer', transition: 'all 0.3s ease'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.transform = 'translate(-50%, -50%) scale(1.25)'}
-              onMouseLeave={(e) => e.currentTarget.style.transform = 'translate(-50%, -50%) scale(1)'}
-            >
-              <div style={{
-                width: '80px', height: '80px', borderRadius: '50%', background: planet.color,
-                boxShadow: `0 0 30px ${planet.color}`, display: 'flex', flexDirection: 'column',
-                alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold',
-                border: '3px solid rgba(255,255,255,0.3)'
-              }}>
-                <div style={{ fontSize: '2rem' }}>{planet.icon}</div>
-                <div style={{ fontSize: '0.75rem', textTransform: 'capitalize', marginTop: '0.25rem' }}>
-                  {planet.name}
-                </div>
-              </div>
-              <div style={{
-                position: 'absolute', bottom: '-2rem', left: '50%', transform: 'translateX(-50%)',
-                color: 'white', fontSize: '0.75rem', background: 'rgba(0,0,0,0.5)',
-                padding: '0.25rem 0.5rem', borderRadius: '12px', whiteSpace: 'nowrap'
-              }}>
-                {planetUsage[planet.name]}% used
-              </div>
-            </div>
-          </div>
-        );
-      })}
+      {/* Tip Section */}
+      <div style={{
+        textAlign: 'center',
+        marginTop: '3rem',
+        color: 'rgba(255,255,255,0.7)',
+        fontSize: '0.9rem'
+      }}>
+        <p>💡 Pro Tip: Press <kbd style={{ 
+          background: 'rgba(255,255,255,0.2)', 
+          padding: '0.25rem 0.5rem', 
+          borderRadius: '4px',
+          fontWeight: 'bold'
+        }}>Ctrl+K</kbd> anytime to open the command palette</p>
+      </div>
     </div>
   );
 }
@@ -400,9 +539,15 @@ function CommandPalette({ isOpen, onClose, theme, setUserMood, setIsDarkMode, se
     { name: 'Find AI events', action: () => setCurrentView('events'), category: 'navigation', icon: '🔍' },
     { name: 'Book mentor session', action: () => setCurrentView('mentorship'), category: 'action', icon: '📅' },
     { name: 'View my NFTs', action: () => setCurrentView('blockchain'), category: 'content', icon: '🎨' },
+    { name: 'AR Campus Navigation', action: () => setCurrentView('ar_navigation'), category: 'navigation', icon: '🗺️' },
+    { name: 'Voice Assistant', action: () => setCurrentView('voice_assistant'), category: 'action', icon: '🎤' },
+    { name: 'Apply for Recruitment', action: () => setCurrentView('recruitment'), category: 'action', icon: '📝' },
     { name: 'I feel stressed', action: () => { setUserMood('stressed'); setCurrentView('wellness'); }, category: 'wellness', icon: '😰' },
     { name: 'View analytics', action: () => setCurrentView('analytics'), category: 'navigation', icon: '📊' },
     { name: 'Join project', action: () => setCurrentView('projects'), category: 'action', icon: '🚀' },
+    { name: 'IEEE Membership', action: () => setCurrentView('membership'), category: 'navigation', icon: '⚡' },
+    { name: 'Give Event Feedback', action: () => setCurrentView('feedback'), category: 'action', icon: '📋' },
+    { name: 'Social Media Links', action: () => setCurrentView('social'), category: 'navigation', icon: '🌐' },
     { name: 'Toggle dark mode', action: () => setIsDarkMode(prev => !prev), category: 'settings', icon: '🌙' },
     { name: 'Toggle demo mode', action: () => setDemoMode(!demoMode), category: 'settings', icon: '🎬' },
     { name: 'Go to universe', action: () => setCurrentView('universe'), category: 'navigation', icon: '🌌' }
@@ -1048,5 +1193,1064 @@ function BlockchainView({ theme }) {
   );
 }
 
-export default App;
+// ==================== NEW IEEE IGDTUW FEATURES ====================
 
+function ARNavigationView({ theme }) {
+  const [selectedVenue, setSelectedVenue] = useState(null);
+  
+  const campusVenues = [
+    { 
+      id: 1, 
+      name: 'Seminar Hall A', 
+      coordinates: '28.6692° N, 77.2378° E',
+      qrCode: '🔲',
+      capacity: 100,
+      facilities: ['Projector', 'AC', 'Sound System'],
+      upcomingEvents: 2,
+      arFeatures: ['3D Floor Plan', 'Speaker Bio Overlay', 'Historical Events Timeline']
+    },
+    { 
+      id: 2, 
+      name: 'Computer Lab', 
+      coordinates: '28.6695° N, 77.2380° E',
+      qrCode: '🔲',
+      capacity: 60,
+      facilities: ['High-Speed Internet', 'Workstations', 'Whiteboard'],
+      upcomingEvents: 1,
+      arFeatures: ['Equipment Guide', 'Lab Rules AR', 'Project Showcase']
+    },
+    { 
+      id: 3, 
+      name: 'Main Auditorium', 
+      coordinates: '28.6690° N, 77.2375° E',
+      qrCode: '🔲',
+      capacity: 500,
+      facilities: ['Stage', 'LED Screen', 'Professional Audio'],
+      upcomingEvents: 3,
+      arFeatures: ['Seat Finder', 'Event History', 'Speaker Spotlight']
+    },
+    { 
+      id: 4, 
+      name: 'Innovation Lab', 
+      coordinates: '28.6697° N, 77.2382° E',
+      qrCode: '🔲',
+      capacity: 40,
+      facilities: ['3D Printers', 'IoT Kits', 'VR Headsets'],
+      upcomingEvents: 1,
+      arFeatures: ['Equipment Tutorial', 'Project Gallery', 'Safety Guidelines']
+    }
+  ];
+
+  return (
+    <div style={{ padding: '2rem', maxWidth: '1280px', margin: '0 auto' }}>
+      <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+        <h1 style={{ 
+          color: theme.text, 
+          fontFamily: 'Georgia, serif', 
+          fontSize: '2.5rem',
+          marginBottom: '1rem'
+        }}>
+          🗺️ AR Campus Navigation
+        </h1>
+        <p style={{ 
+          color: theme.textSecondary, 
+          fontSize: '1.1rem',
+          maxWidth: '700px',
+          margin: '0 auto'
+        }}>
+          Scan QR codes at IGDTUW venues for immersive AR directions, speaker bios, and IEEE history
+        </p>
+      </div>
+
+      {/* AR Features Overview */}
+      <div style={{
+        background: `linear-gradient(135deg, ${theme.ieee} 0%, #00cc99 100%)`,
+        padding: '2rem',
+        borderRadius: '16px',
+        color: 'white',
+        marginBottom: '3rem',
+        textAlign: 'center'
+      }}>
+        <h2 style={{ marginBottom: '2rem' }}>AR Navigation Features</h2>
+        <div style={{ 
+          display: 'grid', 
+          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
+          gap: '2rem'
+        }}>
+          {[
+            { icon: '📍', label: 'Real-time Directions', desc: 'Turn-by-turn AR guidance' },
+            { icon: '👤', label: 'Speaker Bios', desc: 'Interactive presenter info' },
+            { icon: '📚', label: 'IEEE History', desc: 'Society heritage overlays' },
+            { icon: '🎯', label: 'Event Details', desc: 'Live schedule & updates' }
+          ].map((feature, i) => (
+            <div key={i}>
+              <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>{feature.icon}</div>
+              <div style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '0.25rem' }}>
+                {feature.label}
+              </div>
+              <div style={{ fontSize: '0.9rem', opacity: 0.9 }}>
+                {feature.desc}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Campus Venues */}
+      <h2 style={{ color: theme.text, marginBottom: '1.5rem' }}>
+        📍 IGDTUW Event Venues
+      </h2>
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', 
+        gap: '1.5rem'
+      }}>
+        {campusVenues.map((venue) => (
+          <div key={venue.id} style={{
+            background: theme.white,
+            borderRadius: '16px',
+            padding: '1.5rem',
+            border: `2px solid ${selectedVenue === venue.id ? theme.ieee : theme.bg}`,
+            transition: 'all 0.3s',
+            cursor: 'pointer'
+          }}
+          onClick={() => setSelectedVenue(venue.id)}
+          onMouseEnter={(e) => {
+            if (selectedVenue !== venue.id) {
+              e.currentTarget.style.borderColor = `${theme.ieee}60`;
+              e.currentTarget.style.transform = 'translateY(-3px)';
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (selectedVenue !== venue.id) {
+              e.currentTarget.style.borderColor = theme.bg;
+              e.currentTarget.style.transform = 'translateY(0)';
+            }
+          }}>
+            <div style={{ display: 'flex', alignItems: 'start', justifyContent: 'space-between', marginBottom: '1rem' }}>
+              <div>
+                <h3 style={{ color: theme.text, marginBottom: '0.5rem', fontSize: '1.3rem' }}>
+                  {venue.name}
+                </h3>
+                <div style={{ fontSize: '0.85rem', color: theme.textSecondary, marginBottom: '0.5rem' }}>
+                  📍 {venue.coordinates}
+                </div>
+                <div style={{ display: 'flex', gap: '1rem', fontSize: '0.85rem', color: theme.textSecondary }}>
+                  <span>👥 {venue.capacity} capacity</span>
+                  <span style={{ 
+                    background: `${theme.accent}20`, 
+                    color: theme.accent, 
+                    padding: '0.25rem 0.5rem', 
+                    borderRadius: '12px',
+                    fontWeight: 'bold'
+                  }}>
+                    {venue.upcomingEvents} events
+                  </span>
+                </div>
+              </div>
+              <div style={{ fontSize: '4rem' }}>{venue.qrCode}</div>
+            </div>
+
+            <div style={{ marginBottom: '1rem' }}>
+              <div style={{ fontWeight: 'bold', color: theme.text, marginBottom: '0.5rem', fontSize: '0.9rem' }}>
+                Facilities:
+              </div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                {venue.facilities.map((facility, i) => (
+                  <span key={i} style={{
+                    fontSize: '0.75rem',
+                    background: `${theme.accent}10`,
+                    color: theme.accent,
+                    padding: '0.25rem 0.5rem',
+                    borderRadius: '12px'
+                  }}>
+                    {facility}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div style={{ marginBottom: '1rem' }}>
+              <div style={{ fontWeight: 'bold', color: theme.text, marginBottom: '0.5rem', fontSize: '0.9rem' }}>
+                AR Features:
+              </div>
+              {venue.arFeatures.map((feature, i) => (
+                <div key={i} style={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: '0.5rem',
+                  fontSize: '0.85rem',
+                  color: theme.textSecondary,
+                  marginBottom: '0.25rem'
+                }}>
+                  <span style={{ color: theme.ieee }}>✓</span>
+                  <span>{feature}</span>
+                </div>
+              ))}
+            </div>
+
+            <button style={{
+              width: '100%',
+              padding: '0.75rem',
+              background: theme.ieee,
+              color: 'white',
+              border: 'none',
+              borderRadius: '8px',
+              fontWeight: 'bold',
+              cursor: 'pointer',
+              fontSize: '0.9rem'
+            }}>
+              🔲 Scan QR & Launch AR
+            </button>
+          </div>
+        ))}
+      </div>
+
+      {/* How to Use AR */}
+      <div style={{
+        background: theme.white,
+        padding: '2rem',
+        borderRadius: '16px',
+        marginTop: '3rem'
+      }}>
+        <h2 style={{ color: theme.text, marginBottom: '1.5rem', textAlign: 'center' }}>
+          🚀 How to Use AR Navigation
+        </h2>
+        <div style={{ 
+          display: 'grid', 
+          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', 
+          gap: '2rem'
+        }}>
+          {[
+            { 
+              step: '1', 
+              title: 'Find QR Code',
+              desc: 'Locate QR codes at venue entrances or event posters',
+              icon: '🔍'
+            },
+            { 
+              step: '2', 
+              title: 'Scan with Camera',
+              desc: 'Use your phone camera or IEEE MetaCampus app to scan',
+              icon: '📱'
+            },
+            { 
+              step: '3', 
+              title: 'Experience AR',
+              desc: 'View directions, speaker info, and IEEE history overlays',
+              icon: '✨'
+            },
+            { 
+              step: '4', 
+              title: 'Navigate Easily',
+              desc: 'Follow AR markers to reach your destination',
+              icon: '🎯'
+            }
+          ].map((item, i) => (
+            <div key={i} style={{ textAlign: 'center' }}>
+              <div style={{
+                width: '60px',
+                height: '60px',
+                borderRadius: '50%',
+                background: theme.ieee,
+                color: 'white',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '1.5rem',
+                fontWeight: 'bold',
+                margin: '0 auto 1rem'
+              }}>
+                {item.step}
+              </div>
+              <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>{item.icon}</div>
+              <h3 style={{ color: theme.text, marginBottom: '0.5rem', fontSize: '1.1rem' }}>
+                {item.title}
+              </h3>
+              <p style={{ color: theme.textSecondary, fontSize: '0.9rem', lineHeight: '1.5' }}>
+                {item.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* AR Compatibility */}
+      <div style={{
+        marginTop: '2rem',
+        padding: '1.5rem',
+        background: `${theme.accent}10`,
+        borderRadius: '12px',
+        textAlign: 'center'
+      }}>
+        <div style={{ fontWeight: 'bold', color: theme.text, marginBottom: '0.5rem' }}>
+          📱 Device Compatibility
+        </div>
+        <div style={{ color: theme.textSecondary, fontSize: '0.9rem' }}>
+          Powered by ARKit (iOS) and ARCore (Android) • Requires camera access • Best with iOS 12+ or Android 8+
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function VoiceAssistantView({ theme }) {
+  const [isListening, setIsListening] = useState(false);
+  const [transcript, setTranscript] = useState('');
+  const [response, setResponse] = useState('');
+  const [language, setLanguage] = useState('en');
+
+  const sampleQueries = [
+    { query: 'What are upcoming IEEE IGDTUW events?', category: 'Events', icon: '📅' },
+    { query: 'Check my registration status', category: 'Status', icon: '✅' },
+    { query: 'Find AI/ML workshops', category: 'Search', icon: '🔍' },
+    { query: 'Connect me with a mentor', category: 'Mentorship', icon: '🎓' },
+    { query: 'Show my NFT certificates', category: 'Blockchain', icon: '🎨' },
+    { query: 'IEEE IGDTUW ka address kya hai?', category: 'Info (Hindi)', icon: '🏛️' }
+  ];
+
+  const features = [
+    { icon: '🎤', title: 'Voice Commands', desc: 'Hands-free IEEE queries' },
+    { icon: '🌍', title: 'Hindi & English', desc: 'Bilingual support' },
+    { icon: '⚡', title: 'Real-time Response', desc: 'Instant answers' },
+    { icon: '🔊', title: 'Text-to-Speech', desc: 'Audio responses' }
+  ];
+
+  const handleStartListening = () => {
+    setIsListening(true);
+    setTranscript('');
+    setResponse('');
+    // Simulate voice recognition
+    setTimeout(() => {
+      setTranscript('What are upcoming IEEE IGDTUW events?');
+      setIsListening(false);
+      setTimeout(() => {
+        setResponse('I found 3 upcoming events: AI/ML Workshop on Feb 20, Blockchain Hackathon on Feb 25, and IEEE Day Celebration on Mar 5. Would you like to register for any of these?');
+      }, 500);
+    }, 2000);
+  };
+
+  const handleSampleQuery = (query) => {
+    setTranscript(query);
+    setResponse('Processing your query...');
+    setTimeout(() => {
+      setResponse(`Here's information about: "${query}". This is a demo response showing how the voice assistant would handle your query.`);
+    }, 1000);
+  };
+
+  return (
+    <div style={{ padding: '2rem', maxWidth: '1280px', margin: '0 auto' }}>
+      <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+        <h1 style={{ 
+          color: theme.text, 
+          fontFamily: 'Georgia, serif', 
+          fontSize: '2.5rem',
+          marginBottom: '1rem'
+        }}>
+          🎤 Voice-Activated IEEE IGDTUW Assistant
+        </h1>
+        <p style={{ 
+          color: theme.textSecondary, 
+          fontSize: '1.1rem',
+          maxWidth: '700px',
+          margin: '0 auto'
+        }}>
+          Ask questions hands-free with Hindi/English support and real-time responses
+        </p>
+      </div>
+
+      {/* Features Grid */}
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
+        gap: '1.5rem',
+        marginBottom: '3rem'
+      }}>
+        {features.map((feature, i) => (
+          <div key={i} style={{
+            background: theme.white,
+            padding: '1.5rem',
+            borderRadius: '12px',
+            textAlign: 'center',
+            border: `2px solid ${theme.bg}`
+          }}>
+            <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>{feature.icon}</div>
+            <div style={{ fontWeight: 'bold', color: theme.text, marginBottom: '0.25rem' }}>
+              {feature.title}
+            </div>
+            <div style={{ fontSize: '0.85rem', color: theme.textSecondary }}>
+              {feature.desc}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Voice Interface */}
+      <div style={{
+        background: theme.white,
+        padding: '2rem',
+        borderRadius: '16px',
+        marginBottom: '3rem',
+        border: `2px solid ${theme.bg}`
+      }}>
+        <h2 style={{ color: theme.text, marginBottom: '1.5rem', textAlign: 'center' }}>
+          Try Voice Assistant
+        </h2>
+
+        {/* Language Selector */}
+        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+          <div style={{ fontSize: '0.9rem', color: theme.textSecondary, marginBottom: '0.5rem' }}>
+            Select Language:
+          </div>
+          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+            {[
+              { code: 'en', label: 'English 🇺🇸' },
+              { code: 'hi', label: 'हिंदी 🇮🇳' }
+            ].map((lang) => (
+              <button
+                key={lang.code}
+                onClick={() => setLanguage(lang.code)}
+                style={{
+                  padding: '0.75rem 1.5rem',
+                  background: language === lang.code ? theme.ieee : theme.bg,
+                  color: language === lang.code ? 'white' : theme.text,
+                  border: 'none',
+                  borderRadius: '8px',
+                  fontWeight: 'bold',
+                  cursor: 'pointer',
+                  fontSize: '1rem'
+                }}
+              >
+                {lang.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Microphone Button */}
+        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+          <button
+            onClick={handleStartListening}
+            disabled={isListening}
+            style={{
+              width: '150px',
+              height: '150px',
+              borderRadius: '50%',
+              background: isListening 
+                ? 'linear-gradient(135deg, #ff6b6b 0%, #ff8787 100%)' 
+                : `linear-gradient(135deg, ${theme.ieee} 0%, #00cc99 100%)`,
+              border: 'none',
+              cursor: isListening ? 'not-allowed' : 'pointer',
+              fontSize: '4rem',
+              boxShadow: '0 10px 40px rgba(0,0,0,0.2)',
+              transition: 'all 0.3s',
+              animation: isListening ? 'pulse 1.5s ease-in-out infinite' : 'none'
+            }}
+            onMouseEnter={(e) => {
+              if (!isListening) e.currentTarget.style.transform = 'scale(1.05)';
+            }}
+            onMouseLeave={(e) => {
+              if (!isListening) e.currentTarget.style.transform = 'scale(1)';
+            }}
+          >
+            🎤
+          </button>
+          <div style={{ 
+            marginTop: '1rem', 
+            fontWeight: 'bold', 
+            color: theme.text,
+            fontSize: '1.1rem'
+          }}>
+            {isListening ? 'Listening... 🔊' : 'Tap to speak'}
+          </div>
+        </div>
+
+        {/* Transcript */}
+        {transcript && (
+          <div style={{
+            padding: '1rem',
+            background: `${theme.accent}10`,
+            borderRadius: '12px',
+            marginBottom: '1rem'
+          }}>
+            <div style={{ fontWeight: 'bold', color: theme.text, marginBottom: '0.5rem' }}>
+              You said:
+            </div>
+            <div style={{ color: theme.textSecondary, fontSize: '1.1rem' }}>
+              "{transcript}"
+            </div>
+          </div>
+        )}
+
+        {/* Response */}
+        {response && (
+          <div style={{
+            padding: '1.5rem',
+            background: theme.ieee,
+            color: 'white',
+            borderRadius: '12px',
+            display: 'flex',
+            gap: '1rem',
+            alignItems: 'start'
+          }}>
+            <div style={{ fontSize: '2rem' }}>🤖</div>
+            <div>
+              <div style={{ fontWeight: 'bold', marginBottom: '0.5rem', fontSize: '1.1rem' }}>
+                IEEE Assistant:
+              </div>
+              <div style={{ lineHeight: '1.6' }}>
+                {response}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Sample Queries */}
+      <div style={{ marginBottom: '3rem' }}>
+        <h2 style={{ color: theme.text, marginBottom: '1.5rem', textAlign: 'center' }}>
+          Try These Sample Queries
+        </h2>
+        <div style={{ 
+          display: 'grid', 
+          gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', 
+          gap: '1rem'
+        }}>
+          {sampleQueries.map((item, i) => (
+            <div
+              key={i}
+              onClick={() => handleSampleQuery(item.query)}
+              style={{
+                background: theme.white,
+                padding: '1.25rem',
+                borderRadius: '12px',
+                border: `2px solid ${theme.bg}`,
+                cursor: 'pointer',
+                transition: 'all 0.3s'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = theme.ieee;
+                e.currentTarget.style.transform = 'translateY(-3px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = theme.bg;
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}
+            >
+              <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                <div style={{ fontSize: '2rem' }}>{item.icon}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ 
+                    fontSize: '0.75rem', 
+                    color: theme.accent, 
+                    fontWeight: 'bold',
+                    marginBottom: '0.25rem'
+                  }}>
+                    {item.category}
+                  </div>
+                  <div style={{ color: theme.text, fontSize: '0.95rem' }}>
+                    {item.query}
+                  </div>
+                </div>
+                <div style={{ fontSize: '1.5rem', color: theme.textSecondary }}>▶️</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Technical Info */}
+      <div style={{
+        background: `${theme.accent}10`,
+        padding: '1.5rem',
+        borderRadius: '12px',
+        textAlign: 'center'
+      }}>
+        <div style={{ fontWeight: 'bold', color: theme.text, marginBottom: '0.5rem' }}>
+          🔧 Powered by Web Speech API
+        </div>
+        <div style={{ color: theme.textSecondary, fontSize: '0.9rem' }}>
+          Supports real-time transcription • Hindi & English recognition • Text-to-speech responses • Works on modern browsers
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function RecruitmentView({ theme }) {
+  const [selectedRole, setSelectedRole] = useState(null);
+  const [showApplicationForm, setShowApplicationForm] = useState(false);
+
+  const recruitmentRoles = [
+    {
+      id: 'core-technical',
+      title: 'Core Team - Technical Lead',
+      emoji: '💻',
+      color: '#006699',
+      openings: 3,
+      deadline: '2026-03-01',
+      eligibility: ['2nd/3rd year students', 'Strong technical skills', 'Leadership experience'],
+      responsibilities: [
+        'Lead technical workshops and events',
+        'Mentor junior members',
+        'Coordinate with faculty advisors',
+        'Manage project deliverables'
+      ],
+      requirements: ['AI/ML or Web Development expertise', 'Past IEEE event participation', 'Good communication skills']
+    },
+    {
+      id: 'core-events',
+      title: 'Core Team - Events Coordinator',
+      emoji: '🎪',
+      color: '#ff6b6b',
+      openings: 2,
+      deadline: '2026-03-01',
+      eligibility: ['2nd/3rd year students', 'Event management experience', 'Creative mindset'],
+      responsibilities: [
+        'Plan and execute IEEE events',
+        'Coordinate with speakers and vendors',
+        'Manage event budgets',
+        'Handle logistics and promotions'
+      ],
+      requirements: ['Strong organizational skills', 'Team player', 'Past event coordination experience']
+    },
+    {
+      id: 'associate-content',
+      title: 'Associate - Content Writer',
+      emoji: '✍️',
+      color: '#4ecdc4',
+      openings: 5,
+      deadline: '2026-03-05',
+      eligibility: ['All years', 'Good writing skills', 'Tech-savvy'],
+      responsibilities: [
+        'Write technical blogs and articles',
+        'Create social media content',
+        'Document IEEE events',
+        'Maintain website content'
+      ],
+      requirements: ['Excellent English writing', 'Knowledge of tech trends', 'Creativity']
+    },
+    {
+      id: 'associate-design',
+      title: 'Associate - Design & Media',
+      emoji: '🎨',
+      color: '#9b59b6',
+      openings: 4,
+      deadline: '2026-03-05',
+      eligibility: ['All years', 'Design portfolio required', 'Creative tools proficiency'],
+      responsibilities: [
+        'Design event posters and banners',
+        'Create social media graphics',
+        'Edit event videos and photos',
+        'Maintain visual brand identity'
+      ],
+      requirements: ['Adobe Creative Suite or Canva', 'Portfolio of past work', 'Creative thinking']
+    },
+    {
+      id: 'coordinator-outreach',
+      title: 'Coordinator - Outreach & PR',
+      emoji: '📢',
+      color: '#00cc99',
+      openings: 3,
+      deadline: '2026-03-10',
+      eligibility: ['1st/2nd year students', 'Good communication', 'Social media skills'],
+      responsibilities: [
+        'Manage social media accounts',
+        'Connect with other IEEE chapters',
+        'Promote IEEE events',
+        'Build community engagement'
+      ],
+      requirements: ['Active on social media', 'Good interpersonal skills', 'Marketing knowledge']
+    }
+  ];
+
+  const applicationProcess = [
+    { step: 1, title: 'Choose Role', desc: 'Select the position that matches your skills', icon: '🎯' },
+    { step: 2, title: 'Fill Application', desc: 'Complete the detailed application form', icon: '📝' },
+    { step: 3, title: 'Submit Portfolio', desc: 'Share relevant work samples (if applicable)', icon: '📁' },
+    { step: 4, title: 'Shortlisting', desc: 'Wait for review (3-5 working days)', icon: '⏳' },
+    { step: 5, title: 'Interview', desc: 'Attend interview with IEEE panel', icon: '💬' },
+    { step: 6, title: 'Selection', desc: 'Receive acceptance notification', icon: '🎉' }
+  ];
+
+  return (
+    <div style={{ padding: '2rem', maxWidth: '1280px', margin: '0 auto' }}>
+      <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+        <h1 style={{ 
+          color: theme.text, 
+          fontFamily: 'Georgia, serif', 
+          fontSize: '2.5rem',
+          marginBottom: '1rem'
+        }}>
+          📝 IEEE IGDTUW Recruitment 2026
+        </h1>
+        <p style={{ 
+          color: theme.textSecondary, 
+          fontSize: '1.1rem',
+          maxWidth: '700px',
+          margin: '0 auto'
+        }}>
+          Join the IEEE IGDTUW family! Applications open for Core Team, Associates, and Coordinators
+        </p>
+      </div>
+
+      {/* Recruitment Stats */}
+      <div style={{
+        background: `linear-gradient(135deg, ${theme.ieee} 0%, #00cc99 100%)`,
+        padding: '2rem',
+        borderRadius: '16px',
+        color: 'white',
+        marginBottom: '3rem',
+        textAlign: 'center'
+      }}>
+        <div style={{ 
+          display: 'grid', 
+          gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', 
+          gap: '2rem'
+        }}>
+          {[
+            { label: 'Open Positions', value: '17', icon: '📊' },
+            { label: 'Departments', value: '5', icon: '🏢' },
+            { label: 'Benefits', value: '∞', icon: '🎁' },
+            { label: 'Growth', value: '100%', icon: '📈' }
+          ].map((stat, i) => (
+            <div key={i}>
+              <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>{stat.icon}</div>
+              <div style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '0.25rem' }}>
+                {stat.value}
+              </div>
+              <div style={{ fontSize: '0.9rem', opacity: 0.9 }}>
+                {stat.label}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Available Roles */}
+      <h2 style={{ color: theme.text, marginBottom: '1.5rem' }}>
+        🎯 Available Positions
+      </h2>
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', 
+        gap: '1.5rem',
+        marginBottom: '3rem'
+      }}>
+        {recruitmentRoles.map((role) => (
+          <div key={role.id} style={{
+            background: theme.white,
+            borderRadius: '16px',
+            padding: '1.5rem',
+            border: selectedRole === role.id ? `3px solid ${role.color}` : `2px solid ${theme.bg}`,
+            transition: 'all 0.3s',
+            cursor: 'pointer'
+          }}
+          onClick={() => setSelectedRole(role.id)}>
+            <div style={{ display: 'flex', alignItems: 'start', justifyContent: 'space-between', marginBottom: '1rem' }}>
+              <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                <div style={{ fontSize: '3rem' }}>{role.emoji}</div>
+                <div>
+                  <h3 style={{ color: theme.text, margin: '0 0 0.5rem 0', fontSize: '1.2rem' }}>
+                    {role.title}
+                  </h3>
+                  <div style={{ display: 'flex', gap: '0.75rem', fontSize: '0.85rem' }}>
+                    <span style={{ 
+                      background: `${role.color}20`, 
+                      color: role.color, 
+                      padding: '0.25rem 0.5rem', 
+                      borderRadius: '12px',
+                      fontWeight: 'bold'
+                    }}>
+                      {role.openings} openings
+                    </span>
+                    <span style={{ color: theme.textSecondary }}>
+                      📅 {role.deadline}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style={{ marginBottom: '1rem' }}>
+              <div style={{ fontWeight: 'bold', color: theme.text, marginBottom: '0.5rem', fontSize: '0.9rem' }}>
+                Eligibility:
+              </div>
+              {role.eligibility.map((item, i) => (
+                <div key={i} style={{ 
+                  fontSize: '0.85rem', 
+                  color: theme.textSecondary,
+                  marginBottom: '0.25rem',
+                  paddingLeft: '1rem'
+                }}>
+                  • {item}
+                </div>
+              ))}
+            </div>
+
+            <div style={{ marginBottom: '1rem' }}>
+              <div style={{ fontWeight: 'bold', color: theme.text, marginBottom: '0.5rem', fontSize: '0.9rem' }}>
+                Key Responsibilities:
+              </div>
+              {role.responsibilities.slice(0, 3).map((item, i) => (
+                <div key={i} style={{ 
+                  fontSize: '0.85rem', 
+                  color: theme.textSecondary,
+                  marginBottom: '0.25rem',
+                  paddingLeft: '1rem'
+                }}>
+                  • {item}
+                </div>
+              ))}
+              {role.responsibilities.length > 3 && (
+                <div style={{ 
+                  fontSize: '0.85rem', 
+                  color: role.color,
+                  marginTop: '0.25rem',
+                  fontWeight: 'bold'
+                }}>
+                  +{role.responsibilities.length - 3} more...
+                </div>
+              )}
+            </div>
+
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedRole(role.id);
+                setShowApplicationForm(true);
+              }}
+              style={{
+                width: '100%',
+                padding: '0.875rem',
+                background: selectedRole === role.id ? role.color : theme.bg,
+                color: selectedRole === role.id ? 'white' : theme.text,
+                border: 'none',
+                borderRadius: '8px',
+                fontWeight: 'bold',
+                cursor: 'pointer',
+                transition: 'all 0.3s'
+              }}
+            >
+              Apply Now →
+            </button>
+          </div>
+        ))}
+      </div>
+
+      {/* Application Process */}
+      <div style={{
+        background: theme.white,
+        padding: '2rem',
+        borderRadius: '16px',
+        marginBottom: '3rem'
+      }}>
+        <h2 style={{ color: theme.text, marginBottom: '1.5rem', textAlign: 'center' }}>
+          📋 Application Process
+        </h2>
+        <div style={{ 
+          display: 'grid', 
+          gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', 
+          gap: '1.5rem'
+        }}>
+          {applicationProcess.map((item, i) => (
+            <div key={i} style={{ textAlign: 'center' }}>
+              <div style={{
+                width: '60px',
+                height: '60px',
+                borderRadius: '50%',
+                background: theme.ieee,
+                color: 'white',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '1.5rem',
+                fontWeight: 'bold',
+                margin: '0 auto 0.5rem'
+              }}>
+                {item.step}
+              </div>
+              <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>{item.icon}</div>
+              <h3 style={{ color: theme.text, marginBottom: '0.25rem', fontSize: '1rem' }}>
+                {item.title}
+              </h3>
+              <p style={{ color: theme.textSecondary, fontSize: '0.85rem', lineHeight: '1.4' }}>
+                {item.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Benefits of Joining */}
+      <div style={{
+        background: `${theme.accent}10`,
+        padding: '2rem',
+        borderRadius: '16px',
+        marginBottom: '3rem'
+      }}>
+        <h2 style={{ color: theme.text, marginBottom: '1.5rem', textAlign: 'center' }}>
+          🎁 Why Join IEEE IGDTUW?
+        </h2>
+        <div style={{ 
+          display: 'grid', 
+          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', 
+          gap: '1.5rem'
+        }}>
+          {[
+            { icon: '🏆', title: 'Leadership Skills', desc: 'Develop management & coordination abilities' },
+            { icon: '🤝', title: 'Networking', desc: 'Connect with industry professionals' },
+            { icon: '📚', title: 'Learning', desc: 'Access to workshops & resources' },
+            { icon: '🎯', title: 'Experience', desc: 'Organize real IEEE events' },
+            { icon: '📜', title: 'Certificates', desc: 'Official IEEE recognition' },
+            { icon: '⭐', title: 'Portfolio', desc: 'Build impressive credentials' }
+          ].map((benefit, i) => (
+            <div key={i} style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>{benefit.icon}</div>
+              <h3 style={{ color: theme.text, marginBottom: '0.25rem' }}>
+                {benefit.title}
+              </h3>
+              <p style={{ color: theme.textSecondary, fontSize: '0.9rem' }}>
+                {benefit.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Application Form Modal */}
+      {showApplicationForm && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(0,0,0,0.7)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1000,
+          padding: '2rem'
+        }}
+        onClick={() => setShowApplicationForm(false)}>
+          <div style={{
+            background: theme.white,
+            padding: '2rem',
+            borderRadius: '16px',
+            maxWidth: '600px',
+            width: '100%',
+            maxHeight: '80vh',
+            overflow: 'auto'
+          }}
+          onClick={(e) => e.stopPropagation()}>
+            <h2 style={{ color: theme.text, marginBottom: '1.5rem' }}>
+              Apply for Position
+            </h2>
+            
+            <div style={{
+              padding: '1rem',
+              background: `${theme.ieee}10`,
+              borderRadius: '8px',
+              marginBottom: '1.5rem'
+            }}>
+              <div style={{ fontWeight: 'bold', color: theme.text }}>
+                {recruitmentRoles.find(r => r.id === selectedRole)?.title}
+              </div>
+            </div>
+
+            <div style={{ color: theme.text, marginBottom: '1.5rem', lineHeight: '1.6' }}>
+              <p style={{ marginBottom: '1rem' }}>
+                To apply for this position at IEEE IGDTUW:
+              </p>
+              <ol style={{ paddingLeft: '1.5rem', marginBottom: '1rem' }}>
+                <li style={{ marginBottom: '0.5rem' }}>Fill the Google Form application</li>
+                <li style={{ marginBottom: '0.5rem' }}>Upload your resume/CV</li>
+                <li style={{ marginBottom: '0.5rem' }}>Submit portfolio (if applicable)</li>
+                <li style={{ marginBottom: '0.5rem' }}>Wait for shortlisting notification</li>
+              </ol>
+              <div style={{ 
+                padding: '1rem', 
+                background: `${theme.accent}10`, 
+                borderRadius: '8px',
+                fontSize: '0.9rem'
+              }}>
+                💡 <strong>Tip:</strong> Make sure your application highlights relevant skills and past IEEE/tech event participation!
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', gap: '1rem' }}>
+              <button style={{
+                flex: 1,
+                padding: '0.875rem',
+                background: theme.ieee,
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+                fontWeight: 'bold',
+                cursor: 'pointer'
+              }}
+              onClick={() => alert('Opening Google Form... (Demo)')}>
+                Open Application Form
+              </button>
+              <button style={{
+                flex: 1,
+                padding: '0.875rem',
+                background: theme.bg,
+                color: theme.text,
+                border: 'none',
+                borderRadius: '8px',
+                fontWeight: 'bold',
+                cursor: 'pointer'
+              }}
+              onClick={() => setShowApplicationForm(false)}>
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Contact for Queries */}
+      <div style={{
+        background: theme.white,
+        padding: '2rem',
+        borderRadius: '12px',
+        textAlign: 'center'
+      }}>
+        <h3 style={{ color: theme.text, marginBottom: '1rem' }}>
+          Have Questions About Recruitment?
+        </h3>
+        <p style={{ color: theme.textSecondary, marginBottom: '1.5rem' }}>
+          Contact IEEE IGDTUW Recruitment Team
+        </p>
+        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <button style={{
+            padding: '0.75rem 1.5rem',
+            background: theme.ieee,
+            color: 'white',
+            border: 'none',
+            borderRadius: '8px',
+            fontWeight: 'bold',
+            cursor: 'pointer'
+          }}>
+            ✉️ recruitment@ieeeigdtuw.com
+          </button>
+          <button style={{
+            padding: '0.75rem 1.5rem',
+            background: '#25D366',
+            color: 'white',
+            border: 'none',
+            borderRadius: '8px',
+            fontWeight: 'bold',
+            cursor: 'pointer'
+          }}>
+            💬 WhatsApp Group
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default App;
